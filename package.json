@@ -4,7 +4,8 @@
   "description": "Ceci est le projet pour la formation NJS",
   "main": "index.js",
   "scripts": {
-    "test": "echo aucun test"
+    "test": "echo aucun test",
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "Jean-Louis GUENEGO <jlguenego@gmail.com>",
