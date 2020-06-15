@@ -11,7 +11,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static('www'));
+app.use(express.static("www"));
+app.use(serveIndex("www"));
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)
