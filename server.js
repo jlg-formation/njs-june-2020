@@ -26,6 +26,10 @@ app.get("/stock", (req, res, next) => {
   res.render("stock", { articles });
 });
 
+app.get("/add", (req, res, next) => {
+  res.render("add", {});
+});
+
 app.use(express.static("www"));
 app.use(serveIndex("www"));
 
