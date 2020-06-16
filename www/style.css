@@ -34,3 +34,13 @@ tbody tr:nth-child(even) {
 th, td {
   padding: 0.5em;
 }
+
+div.buttons {
+  width: 100%;
+  font-size: 0.6em;
+  padding-bottom: 1em;
+}
+
+div.buttons button {
+  margin-right: 0.5em;
+}
