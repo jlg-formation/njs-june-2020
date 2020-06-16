@@ -25,26 +25,13 @@
           </tr>
         </thead>
         <tbody>
+          <% articles.forEach((article) => { %>
           <tr>
-            <td>Tournevis</td>
-            <td>2.50€</td>
-            <td>120</td>
+            <td><%= article.name %></td>
+            <td><%= article.price %></td>
+            <td><%= article.quantity %></td>
           </tr>
-          <tr>
-            <td>Marteau</td>
-            <td>2.50€</td>
-            <td>120</td>
-          </tr>
-          <tr>
-            <td>Pince</td>
-            <td>2.50€</td>
-            <td>120</td>
-          </tr>
-          <tr>
-            <td>Paquet de 100 clous</td>
-            <td>2.50€</td>
-            <td>120</td>
-          </tr>
+          <% }); %>
         </tbody>
       </table>
     </div>
