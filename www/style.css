@@ -13,3 +13,7 @@ button {
 p {
   color: green;
 }
+
+caption {
+  display: none;
+}
