@@ -6,8 +6,11 @@ const fs = require("fs");
 
 const app = express();
 const port = 3000;
+const filename = "./database/articles.json";
 
 app.set("view engine", "ejs");
+
+app.use(express.urlencoded());
 
 app.use((req, res, next) => {
   console.log("req.url: ", req.url);
@@ -16,10 +19,10 @@ app.use((req, res, next) => {
 
 let articles = [];
 try {
-  articles = JSON.parse(fs.readFileSync("./database/articles.json"));
+  articles = JSON.parse(fs.readFileSync(filename));
 } catch (err) {
   console.log("err: ", err);
-  process.exit(1);
+  fs.writeFileSync(filename, JSON.stringify([], undefined, 2));
 }
 
 app.get("/stock", (req, res, next) => {
@@ -31,12 +34,11 @@ app.get("/add", (req, res, next) => {
 });
 
 app.post("/action/add", (req, res, next) => {
-  const article = {
-    name: "kiki",
-    price: 2.34,
-    quantity: 234,
-  };
+  const article = req.body;
+  console.log("article: ", article);
+
   articles.push(article);
+  fs.writeFileSync(filename, JSON.stringify(articles, undefined, 2));
   res.redirect("/stock");
 });
 
