@@ -17,3 +17,19 @@ p {
 caption {
   display: none;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+thead {
+  background: #ccc;
+}
+
+tbody tr:nth-child(even) {
+  background: #eee;
+}
+
+th, td {
+  padding: 0.5em;
+}
