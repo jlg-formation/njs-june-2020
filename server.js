@@ -31,7 +31,13 @@ app.get("/add", (req, res, next) => {
 });
 
 app.post("/action/add", (req, res, next) => {
-  res.render("stock", { articles });
+  const article = {
+    name: "kiki",
+    price: 2.34,
+    quantity: 234,
+  };
+  articles.push(article);
+  res.redirect("/stock");
 });
 
 app.use(express.static("www"));
