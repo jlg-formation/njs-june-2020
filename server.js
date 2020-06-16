@@ -11,7 +11,7 @@ const filename = "./database/articles.json";
 app.set("view engine", "ejs");
 
 // express.urlencoded() permet de recuperer req.body
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   console.log("req.url: ", req.url);
