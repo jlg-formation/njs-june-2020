@@ -30,6 +30,10 @@ app.get("/add", (req, res, next) => {
   res.render("add", {});
 });
 
+app.post("/action/add", (req, res, next) => {
+  res.render("stock", { articles });
+});
+
 app.use(express.static("www"));
 app.use(serveIndex("www"));
 
