@@ -47,5 +47,6 @@ div.buttons button {
 }
 
 tbody tr:hover {
+  cursor: pointer;
   background: #ddd;
 }
