@@ -10,6 +10,7 @@ const filename = "./database/articles.json";
 
 app.set("view engine", "ejs");
 
+// express.urlencoded() permet de recuperer req.body
 app.use(express.urlencoded());
 
 app.use((req, res, next) => {
@@ -22,7 +23,7 @@ try {
   articles = JSON.parse(fs.readFileSync(filename));
 } catch (err) {
   console.log("err: ", err);
-  fs.writeFileSync(filename, JSON.stringify([], undefined, 2));
+  fs.writeFileSync(filename, JSON.stringify(articles, undefined, 2));
 }
 
 app.get("/stock", (req, res, next) => {
