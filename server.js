@@ -14,7 +14,13 @@ app.use((req, res, next) => {
   next();
 });
 
-const articles = JSON.parse(fs.readFileSync("./database/articles.json"));
+let articles = [];
+try {
+  articles = JSON.parse(fs.readFileSync("./database/articles.json"));
+} catch (err) {
+  console.log("err: ", err);
+  process.exit(1);
+}
 
 app.get("/stock", (req, res, next) => {
   res.render("stock", { articles });
