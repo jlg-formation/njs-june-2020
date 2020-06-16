@@ -11,6 +11,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/stock", (req, res, next) => {
+  res.sendFile("./tmpl/stock.html", { root: __dirname });
+});
+
 app.use(express.static("www"));
 app.use(serveIndex("www"));
 
