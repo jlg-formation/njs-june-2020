@@ -31,7 +31,8 @@ tbody tr:nth-child(even) {
   background: #eee;
 }
 
-th, td {
+th,
+td {
   padding: 0.5em;
 }
 
@@ -43,4 +44,8 @@ div.buttons {
 
 div.buttons button {
   margin-right: 0.5em;
+}
+
+tbody tr:hover {
+  background: #ddd;
 }
