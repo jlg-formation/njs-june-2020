@@ -32,5 +32,18 @@ function remove() {
     console.log("id: ", id);
     ids.push(id);
   });
-  console.log('ids: ', ids);
+  console.log("ids: ", ids);
+
+  const options = {
+    method: "DELETE",
+    body: ids,
+  };
+
+  fetch("/webservices/bulk/articles", options)
+    .then((response) => {
+      console.log("response: ", response);
+    })
+    .catch((error) => {
+      console.log("error: ", error);
+    });
 }
