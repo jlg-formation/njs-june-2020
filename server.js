@@ -55,8 +55,14 @@ app.delete("/webservices/bulk/articles", (req, res, next) => {
     }
     articles.splice(index, 1);
   });
-  fs.writeFileSync(filename, JSON.stringify(articles, undefined, 2));
-  res.status(204).end();
+  fs.writeFile(filename, JSON.stringify(articles, undefined, 2), (err, result) => {
+    if (err) {
+      console.log('err: ', err);
+      res.status(500).end();
+      return;
+    }
+    res.status(204).end();
+  });
 });
 
 app.use(express.static("www"));
