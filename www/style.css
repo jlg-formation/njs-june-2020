@@ -40,6 +40,14 @@ td {
   padding: 0.5em;
 }
 
+td {
+  text-align: right;
+}
+
+td.name {
+  text-align: left;
+}
+
 div.buttons {
   width: 100%;
   font-size: 0.6em;

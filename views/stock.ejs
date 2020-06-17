@@ -29,8 +29,8 @@
         <tbody>
           <% articles.forEach((article) => { %>
           <tr>
-            <td><%= article.name %></td>
-            <td><%= article.price %></td>
+            <td class="name"><%= article.name %></td>
+            <td><%= (+article.price).toFixed(2) %>€</td>
             <td><%= article.quantity %></td>
           </tr>
           <% }); %>
