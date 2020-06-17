@@ -41,8 +41,18 @@ app.post("/action/add", (req, res, next) => {
   article.id = "a" + Math.floor(Math.random() * 1e18);
 
   articles.push(article);
-  fs.writeFileSync(filename, JSON.stringify(articles, undefined, 2));
-  res.redirect("/stock");
+  fs.writeFileSync(
+    filename,
+    JSON.stringify(articles, undefined, 2),
+    (err, result) => {
+      if (err) {
+        console.log("err: ", err);
+        res.status(500).end();
+        return;
+      }
+      res.redirect("/stock");
+    }
+  );
 });
 
 app.delete("/webservices/bulk/articles", (req, res, next) => {
@@ -55,14 +65,18 @@ app.delete("/webservices/bulk/articles", (req, res, next) => {
     }
     articles.splice(index, 1);
   });
-  fs.writeFile(filename, JSON.stringify(articles, undefined, 2), (err, result) => {
-    if (err) {
-      console.log('err: ', err);
-      res.status(500).end();
-      return;
+  fs.writeFile(
+    filename,
+    JSON.stringify(articles, undefined, 2),
+    (err, result) => {
+      if (err) {
+        console.log("err: ", err);
+        res.status(500).end();
+        return;
+      }
+      res.status(204).end();
     }
-    res.status(204).end();
-  });
+  );
 });
 
 app.use(express.static("www"));
