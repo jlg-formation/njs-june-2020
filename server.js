@@ -44,6 +44,13 @@ app.post("/action/add", (req, res, next) => {
   res.redirect("/stock");
 });
 
+app.delete("/webservices/bulk/articles", (req, res, next) => {
+  const ids = req.body;
+  console.log('ids: ', ids);
+  
+  res.status(204).end();
+});
+
 app.use(express.static("www"));
 app.use(serveIndex("www"));
 
