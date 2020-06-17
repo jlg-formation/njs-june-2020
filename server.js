@@ -38,7 +38,7 @@ app.get("/add", (req, res, next) => {
 app.post("/action/add", (req, res, next) => {
   const article = req.body;
   console.log("article: ", article);
-  article.id = "a" + Math.floor(Math.random() * 1E18);
+  article.id = "a" + Math.floor(Math.random() * 1e18);
 
   articles.push(article);
   fs.writeFileSync(filename, JSON.stringify(articles, undefined, 2));
@@ -47,8 +47,15 @@ app.post("/action/add", (req, res, next) => {
 
 app.delete("/webservices/bulk/articles", (req, res, next) => {
   const ids = req.body;
-  console.log('ids: ', ids);
-  
+  console.log("ids: ", ids);
+  ids.forEach((id) => {
+    const index = articles.findIndex((article) => article.id === id);
+    if (index === -1) {
+      return;
+    }
+    articles.splice(index, 1);
+  });
+  fs.writeFileSync(filename, JSON.stringify(articles, undefined, 2));
   res.status(204).end();
 });
 

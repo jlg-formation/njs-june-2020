@@ -45,6 +45,7 @@ function remove() {
   fetch("/webservices/bulk/articles", options)
     .then((response) => {
       console.log("response: ", response);
+      location.reload();
     })
     .catch((error) => {
       console.log("error: ", error);
