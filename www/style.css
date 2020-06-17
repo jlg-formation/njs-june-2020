@@ -101,4 +101,8 @@ tr.selected {
   background: cyan !important;
 }
 
+.jlg-hidden {
+  display: none !important;
+}
+
 
