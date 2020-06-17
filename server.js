@@ -12,6 +12,7 @@ app.set("view engine", "ejs");
 
 // express.urlencoded() permet de recuperer req.body
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use((req, res, next) => {
   console.log("req.url: ", req.url);

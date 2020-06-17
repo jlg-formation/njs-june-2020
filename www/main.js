@@ -36,7 +36,10 @@ function remove() {
 
   const options = {
     method: "DELETE",
-    body: ids,
+    body: JSON.stringify(ids),
+    headers: {
+      "Content-Type": "application/json; charset=UTF-8",
+    },
   };
 
   fetch("/webservices/bulk/articles", options)
