@@ -58,6 +58,10 @@ div.buttons button {
   margin-right: 0.5em;
 }
 
+div.buttons a {
+  text-decoration: inherit;
+}
+
 tbody tr:hover {
   cursor: pointer;
   background: #ddd;
