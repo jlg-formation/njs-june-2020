@@ -41,7 +41,7 @@ app.post("/action/add", (req, res, next) => {
   article.id = "a" + Math.floor(Math.random() * 1e18);
 
   articles.push(article);
-  fs.writeFileSync(
+  fs.writeFile(
     filename,
     JSON.stringify(articles, undefined, 2),
     (err, result) => {
