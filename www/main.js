@@ -21,7 +21,7 @@ function select(e) {
   }
 }
 
-function remove() {
+async function remove() {
   console.log("remove");
   const rows = document.querySelectorAll("tr.selected");
   console.log("rows: ", rows);
@@ -42,12 +42,11 @@ function remove() {
     },
   };
 
-  fetch("/webservices/bulk/articles", options)
-    .then((response) => {
-      console.log("response: ", response);
-      location.reload();
-    })
-    .catch((error) => {
-      console.log("error: ", error);
-    });
+  try {
+    const response = await fetch("/webservices/bulk/articles", options);
+    console.log("response: ", response);
+    location.reload();
+  } catch (err) {
+    console.log("error: ", error);
+  }
 }

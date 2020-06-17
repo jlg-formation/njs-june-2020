@@ -20,12 +20,19 @@ app.use((req, res, next) => {
 });
 
 let articles = [];
-try {
-  articles = JSON.parse(fs.readFileSync(filename));
-} catch (err) {
-  console.log("err: ", err);
-  fs.writeFileSync(filename, JSON.stringify(articles, undefined, 2));
+
+async function init() {
+  try {
+    articles = JSON.parse(await fs.promises.readFile(filename));
+  } catch (err) {
+    console.log("err: ", err);
+    await fs.promises.writeFile(
+      filename,
+      JSON.stringify(articles, undefined, 2)
+    );
+  }
 }
+init();
 
 app.get("/stock", (req, res, next) => {
   res.render("stock", { articles });
@@ -35,27 +42,25 @@ app.get("/add", (req, res, next) => {
   res.render("add", {});
 });
 
-app.post("/action/add", (req, res, next) => {
+app.post("/action/add", async (req, res, next) => {
   const article = req.body;
   console.log("article: ", article);
   article.id = "a" + Math.floor(Math.random() * 1e18);
 
   articles.push(article);
-  fs.writeFile(
-    filename,
-    JSON.stringify(articles, undefined, 2),
-    (err, result) => {
-      if (err) {
-        console.log("err: ", err);
-        res.status(500).end();
-        return;
-      }
-      res.redirect("/stock");
-    }
-  );
+  try {
+    await fs.promises.writeFile(
+      filename,
+      JSON.stringify(articles, undefined, 2)
+    );
+    res.redirect("/stock");
+  } catch (error) {
+    console.log("err: ", err);
+    res.status(500).end();
+  }
 });
 
-app.delete("/webservices/bulk/articles", (req, res, next) => {
+app.delete("/webservices/bulk/articles", async (req, res, next) => {
   const ids = req.body;
   console.log("ids: ", ids);
   ids.forEach((id) => {
@@ -65,18 +70,16 @@ app.delete("/webservices/bulk/articles", (req, res, next) => {
     }
     articles.splice(index, 1);
   });
-  fs.writeFile(
-    filename,
-    JSON.stringify(articles, undefined, 2),
-    (err, result) => {
-      if (err) {
-        console.log("err: ", err);
-        res.status(500).end();
-        return;
-      }
-      res.status(204).end();
-    }
-  );
+  try {
+    await fs.promises.writeFile(
+      filename,
+      JSON.stringify(articles, undefined, 2)
+    );
+    res.status(204).end();
+  } catch (error) {
+    console.log("err: ", err);
+    res.status(500).end();
+  }
 });
 
 app.use(express.static("www"));
