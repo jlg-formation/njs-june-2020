@@ -20,3 +20,7 @@ function select(e) {
     button.classList.remove("jlg-hidden");
   }
 }
+
+function remove() {
+  console.log('remove');
+}
