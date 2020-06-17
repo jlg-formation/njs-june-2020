@@ -22,5 +22,15 @@ function select(e) {
 }
 
 function remove() {
-  console.log('remove');
+  console.log("remove");
+  const rows = document.querySelectorAll("tr.selected");
+  console.log("rows: ", rows);
+  const ids = [];
+  rows.forEach((row) => {
+    row.classList.remove("selected");
+    const id = row.classList.value;
+    console.log("id: ", id);
+    ids.push(id);
+  });
+  console.log('ids: ', ids);
 }

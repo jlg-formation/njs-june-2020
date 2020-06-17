@@ -37,6 +37,7 @@ app.get("/add", (req, res, next) => {
 app.post("/action/add", (req, res, next) => {
   const article = req.body;
   console.log("article: ", article);
+  article.id = "a" + Math.floor(Math.random() * 1E18);
 
   articles.push(article);
   fs.writeFileSync(filename, JSON.stringify(articles, undefined, 2));

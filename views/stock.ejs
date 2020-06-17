@@ -29,7 +29,7 @@
         </thead>
         <tbody>
           <% articles.forEach((article) => { %>
-          <tr onclick="select(this)">
+          <tr onclick="select(this)" class="<%= article.id %>">
             <td class="name"><%= article.name %></td>
             <td><%= (+article.price).toFixed(2) %>€</td>
             <td><%= article.quantity %></td>
