@@ -28,6 +28,17 @@ async function init() {
   try {
     await client.connect();
     console.log("connected to PostgreSQL");
+    // insure that table is created.
+    await client.query(`
+CREATE TABLE IF NOT EXISTS articles 
+(
+  id character varying,
+  name character varying,
+  price numeric,
+  quantity integer
+)`);
+
+    // get the table content
     const res = await client.query("SELECT * FROM articles");
 
     articles = res.rows;
