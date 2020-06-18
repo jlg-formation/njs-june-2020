@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo aucun test",
-    "start": "nodemon server.ts"
+    "start": "nodemon server.ts",
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "Jean-Louis GUENEGO <jlguenego@gmail.com>",
