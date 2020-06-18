@@ -1,8 +1,8 @@
-const express = require("express");
-const serveIndex = require("serve-index");
-const { Client } = require("pg");
-const webservices = require("./webservices.js");
-const action = require("./action.js");
+import express from "express";
+import serveIndex from "serve-index";
+import { Client } from "pg";
+import webservices from "./webservices";
+import action from "./action";
 
 const client = new Client();
 

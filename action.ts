@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 
 const app = express.Router();
 
-module.exports = function (client) {
+export default function (client) {
   app.post("/add", async (req, res, next) => {
     const article = req.body;
     console.log("article: ", article);
@@ -14,7 +14,7 @@ module.exports = function (client) {
         [article.id, article.name, article.price, article.quantity]
       );
       res.redirect("/stock");
-    } catch (error) {
+    } catch (err) {
       console.log("err: ", err);
       res.status(500).end();
     }
@@ -30,11 +30,11 @@ module.exports = function (client) {
         [article.id, article.name, article.price, article.quantity]
       );
       res.redirect("/stock");
-    } catch (error) {
+    } catch (err) {
       console.log("err: ", err);
       res.status(500).end();
     }
   });
 
   return app;
-};
+}

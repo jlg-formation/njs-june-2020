@@ -20,6 +20,9 @@
     "ts-node": "^8.10.2"
   },
   "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/pg": "^7.14.3",
+    "@types/serve-index": "^1.7.30",
     "typescript": "^3.9.5"
   }
 }

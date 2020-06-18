@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 
 const app = express.Router();
 
-module.exports = function (client) {
+export default function (client) {
   app.delete("/bulk/articles", async (req, res, next) => {
     const ids = req.body;
     console.log("ids: ", ids);
@@ -17,10 +17,10 @@ module.exports = function (client) {
     try {
       ids.forEach(async (id) => {});
       res.status(204).end();
-    } catch (error) {
+    } catch (err) {
       console.log("err: ", err);
       res.status(500).end();
     }
   });
   return app;
-};
+}
