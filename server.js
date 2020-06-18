@@ -2,15 +2,12 @@
 
 const express = require("express");
 const serveIndex = require("serve-index");
-const { promises: fs } = require("fs");
 const { Client } = require("pg");
-const assert = require("assert");
 
 const client = new Client();
 
 const app = express();
 const port = 3000;
-const filename = "./database/articles.json";
 
 app.set("view engine", "ejs");
 
