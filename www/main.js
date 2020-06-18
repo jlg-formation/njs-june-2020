@@ -1,10 +1,6 @@
 function select(e) {
   console.log("select", e);
-  if (e.classList.contains("selected")) {
-    e.classList.remove("selected");
-  } else {
-    e.classList.add("selected");
-  }
+  e.classList.toggle("selected");
   const selectedRowCounter = document.querySelectorAll("tr.selected").length;
   console.log("selectedRowCounter: ", selectedRowCounter);
 
