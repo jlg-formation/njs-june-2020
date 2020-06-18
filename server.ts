@@ -1,5 +1,3 @@
-"use strict";
-
 const express = require("express");
 const serveIndex = require("serve-index");
 const { Client } = require("pg");
