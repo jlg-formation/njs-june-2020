@@ -8,6 +8,7 @@ body {
   align-items: center;
   font-size: 2em;
   margin: 0;
+  font-family: sans-serif;
 }
 
 header {
@@ -45,6 +46,7 @@ caption {
 
 table {
   border-collapse: collapse;
+  border: 0.1em solid #ccc;
 }
 
 thead {
