@@ -5,6 +5,9 @@ const serveIndex = require("serve-index");
 const { promises: fs } = require("fs");
 const { Client } = require("pg");
 
+
+const client = new Client();
+
 const app = express();
 const port = 3000;
 const filename = "./database/articles.json";
@@ -25,12 +28,12 @@ let articles = [];
 async function init() {
   try {
     articles = JSON.parse(await fs.readFile(filename));
+
+    await client.connect();
+    console.log('connected to PostgreSQL');
   } catch (err) {
     console.log("err: ", err);
-    await fs.writeFile(
-      filename,
-      JSON.stringify(articles, undefined, 2)
-    );
+    process.exit(1);
   }
 }
 init();
