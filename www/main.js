@@ -19,6 +19,15 @@ function select(e) {
   } else {
     button.classList.remove("jlg-hidden");
   }
+
+  // decide if we need to display update button
+  const updateButton = document.querySelector("a.button-update");
+  console.log('updateButton: ', updateButton);
+  if (selectedRowCounter !== 1) {
+    updateButton.classList.add("jlg-hidden");
+  } else {
+    updateButton.classList.remove("jlg-hidden");
+  }
 }
 
 async function remove() {
