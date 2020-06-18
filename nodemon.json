@@ -1,4 +1,4 @@
 {
   "verbose": true,
-  "ignore": ["databases/*"]
+  "ignore": ["database/*"]
 }
