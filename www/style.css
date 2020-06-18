@@ -7,6 +7,26 @@ body {
   flex-flow: column;
   align-items: center;
   font-size: 2em;
+  margin: 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: #eee;
+  padding: 0 0.5em;
+}
+
+header a {
+  display: flex;
+  align-items: center;
+  text-decoration: inherit;
+  color: inherit;
+}
+
+header img {
+  height: 2em;
 }
 
 button {
