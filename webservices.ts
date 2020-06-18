@@ -1,10 +1,11 @@
 import express from "express";
+import { Client } from "pg";
 
 const app = express.Router();
 
-export default function (client) {
+export default function (client: Client) {
   app.delete("/bulk/articles", async (req, res, next) => {
-    const ids = req.body;
+    const ids: string[] = req.body;
     console.log("ids: ", ids);
 
     const str = `DELETE FROM articles WHERE id IN (${ids
@@ -15,7 +16,7 @@ export default function (client) {
     await client.query(str, ids);
 
     try {
-      ids.forEach(async (id) => {});
+      ids.forEach(async (id: string) => {});
       res.status(204).end();
     } catch (err) {
       console.log("err: ", err);
