@@ -59,7 +59,11 @@ app.post("/action/add", async (req, res, next) => {
   console.log("article: ", article);
   article.id = "a" + Math.floor(Math.random() * 1e18);
 
-  articles.push(article);
+  await client.query(
+    "INSERT INTO articles (id, name, price, quantity) VALUES ($1, $2, $3, $4)",
+    [article.id, article.name, article.price, article.quantity]
+  );
+
   try {
     await fs.writeFile(filename, JSON.stringify(articles, undefined, 2));
     res.redirect("/stock");
