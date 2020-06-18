@@ -2,7 +2,8 @@
 
 const express = require("express");
 const serveIndex = require("serve-index");
-const fs = require("fs");
+const { promises: fs } = require("fs");
+const { Client } = require("pg");
 
 const app = express();
 const port = 3000;
@@ -23,10 +24,10 @@ let articles = [];
 
 async function init() {
   try {
-    articles = JSON.parse(await fs.promises.readFile(filename));
+    articles = JSON.parse(await fs.readFile(filename));
   } catch (err) {
     console.log("err: ", err);
-    await fs.promises.writeFile(
+    await fs.writeFile(
       filename,
       JSON.stringify(articles, undefined, 2)
     );
@@ -49,7 +50,7 @@ app.post("/action/add", async (req, res, next) => {
 
   articles.push(article);
   try {
-    await fs.promises.writeFile(
+    await fs.writeFile(
       filename,
       JSON.stringify(articles, undefined, 2)
     );
@@ -71,7 +72,7 @@ app.delete("/webservices/bulk/articles", async (req, res, next) => {
     articles.splice(index, 1);
   });
   try {
-    await fs.promises.writeFile(
+    await fs.writeFile(
       filename,
       JSON.stringify(articles, undefined, 2)
     );
