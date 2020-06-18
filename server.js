@@ -11,8 +11,6 @@ const client = new Client();
 const app = express();
 const port = 3000;
 
-let articles = [];
-
 app.set("view engine", "ejs");
 
 // express.urlencoded() permet de recuperer req.body
@@ -38,10 +36,6 @@ CREATE TABLE IF NOT EXISTS articles
   quantity integer
 )`);
 
-    // get the table content
-    const res = await client.query("SELECT * FROM articles");
-
-    articles = res.rows;
   } catch (err) {
     console.log("err: ", err);
     process.exit(1);
@@ -55,7 +49,7 @@ app.use("/action", action(client));
 app.get("/stock", async (req, res, next) => {
   try {
     const result = await client.query("SELECT * FROM articles");
-    articles = result.rows;
+    const articles = result.rows;
     articles.sort((a, b) => (a.name < b.name ? -1 : 1));
     res.render("stock", { articles });
   } catch (err) {
