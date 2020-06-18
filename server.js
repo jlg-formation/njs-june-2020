@@ -4,7 +4,7 @@ const express = require("express");
 const serveIndex = require("serve-index");
 const { promises: fs } = require("fs");
 const { Client } = require("pg");
-
+const assert = require('assert');
 
 const client = new Client();
 
@@ -27,10 +27,13 @@ let articles = [];
 
 async function init() {
   try {
-    articles = JSON.parse(await fs.readFile(filename));
+    
 
     await client.connect();
-    console.log('connected to PostgreSQL');
+    console.log("connected to PostgreSQL");
+    const res = await client.query("SELECT * FROM articles");
+    
+    articles = res.rows;
   } catch (err) {
     console.log("err: ", err);
     process.exit(1);
@@ -38,7 +41,9 @@ async function init() {
 }
 init();
 
-app.get("/stock", (req, res, next) => {
+app.get("/stock", async (req, res, next) => {
+  const result = await client.query("SELECT * FROM articles");
+  articles = result.rows;
   res.render("stock", { articles });
 });
 
@@ -53,10 +58,7 @@ app.post("/action/add", async (req, res, next) => {
 
   articles.push(article);
   try {
-    await fs.writeFile(
-      filename,
-      JSON.stringify(articles, undefined, 2)
-    );
+    await fs.writeFile(filename, JSON.stringify(articles, undefined, 2));
     res.redirect("/stock");
   } catch (error) {
     console.log("err: ", err);
@@ -75,10 +77,7 @@ app.delete("/webservices/bulk/articles", async (req, res, next) => {
     articles.splice(index, 1);
   });
   try {
-    await fs.writeFile(
-      filename,
-      JSON.stringify(articles, undefined, 2)
-    );
+    await fs.writeFile(filename, JSON.stringify(articles, undefined, 2));
     res.status(204).end();
   } catch (error) {
     console.log("err: ", err);
