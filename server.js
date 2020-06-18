@@ -4,6 +4,7 @@ const express = require("express");
 const serveIndex = require("serve-index");
 const { Client } = require("pg");
 const webservices = require("./webservices.js");
+const action = require("./action.js");
 
 const client = new Client();
 
@@ -23,8 +24,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
 async function init() {
   try {
     await client.connect();
@@ -39,7 +38,8 @@ async function init() {
 }
 init();
 
-app.use('/webservices', webservices(client));
+app.use("/webservices", webservices(client));
+app.use("/action", action(client));
 
 app.get("/stock", async (req, res, next) => {
   try {
@@ -54,23 +54,6 @@ app.get("/stock", async (req, res, next) => {
 
 app.get("/add", (req, res, next) => {
   res.render("add", {});
-});
-
-app.post("/action/add", async (req, res, next) => {
-  const article = req.body;
-  console.log("article: ", article);
-  article.id = "a" + Math.floor(Math.random() * 1e18);
-
-  try {
-    await client.query(
-      "INSERT INTO articles (id, name, price, quantity) VALUES ($1, $2, $3, $4)",
-      [article.id, article.name, article.price, article.quantity]
-    );
-    res.redirect("/stock");
-  } catch (error) {
-    console.log("err: ", err);
-    res.status(500).end();
-  }
 });
 
 app.use(express.static("www"));
