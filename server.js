@@ -46,7 +46,7 @@ app.get("/stock", async (req, res, next) => {
     res.render("stock", { articles });
   } catch (err) {
     console.log("err: ", err);
-    res.render("stock", { articles: [] });
+    res.status(500).end();
   }
 });
 
@@ -59,13 +59,11 @@ app.post("/action/add", async (req, res, next) => {
   console.log("article: ", article);
   article.id = "a" + Math.floor(Math.random() * 1e18);
 
-  await client.query(
-    "INSERT INTO articles (id, name, price, quantity) VALUES ($1, $2, $3, $4)",
-    [article.id, article.name, article.price, article.quantity]
-  );
-
   try {
-    await fs.writeFile(filename, JSON.stringify(articles, undefined, 2));
+    await client.query(
+      "INSERT INTO articles (id, name, price, quantity) VALUES ($1, $2, $3, $4)",
+      [article.id, article.name, article.price, article.quantity]
+    );
     res.redirect("/stock");
   } catch (error) {
     console.log("err: ", err);
@@ -76,15 +74,11 @@ app.post("/action/add", async (req, res, next) => {
 app.delete("/webservices/bulk/articles", async (req, res, next) => {
   const ids = req.body;
   console.log("ids: ", ids);
-  ids.forEach((id) => {
-    const index = articles.findIndex((article) => article.id === id);
-    if (index === -1) {
-      return;
-    }
-    articles.splice(index, 1);
-  });
+
   try {
-    await fs.writeFile(filename, JSON.stringify(articles, undefined, 2));
+    ids.forEach(async (id) => {
+      await client.query("DELETE FROM articles WHERE id = $1", [id]);
+    });
     res.status(204).end();
   } catch (error) {
     console.log("err: ", err);
