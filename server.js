@@ -37,6 +37,10 @@ CREATE TABLE IF NOT EXISTS articles
 )`);
 
   } catch (err) {
+    if (!process.env.PGHOST) {
+      console.log("Cannot connect to PostgreSQL, please setup PGxxx environment variables");
+      process.exit(1);
+    }
     console.log("err: ", err);
     process.exit(1);
   }
