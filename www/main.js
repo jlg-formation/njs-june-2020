@@ -1,14 +1,11 @@
-let selectedRowCounter = 0;
-
 function select(e) {
   console.log("select", e);
   if (e.classList.contains("selected")) {
     e.classList.remove("selected");
-    selectedRowCounter--;
   } else {
     e.classList.add("selected");
-    selectedRowCounter++;
   }
+  const selectedRowCounter = document.querySelectorAll("tr.selected").length;
   console.log("selectedRowCounter: ", selectedRowCounter);
 
   // decide if we need to display suppress button
