@@ -22,11 +22,15 @@ function select(e) {
 
   // decide if we need to display update button
   const updateButton = document.querySelector("a.button-update");
-  console.log('updateButton: ', updateButton);
+  console.log("updateButton: ", updateButton);
   if (selectedRowCounter !== 1) {
     updateButton.classList.add("jlg-hidden");
   } else {
     updateButton.classList.remove("jlg-hidden");
+    const selectedRow = document.querySelector("tr.selected");
+    const id = selectedRow.classList.value.split(" ")[0];
+    console.log("id: ", id);
+    updateButton.href = "/update/" + id;
   }
 }
 

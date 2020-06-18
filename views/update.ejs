@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mise à jour d'un article</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">
+        <img src="/assets/logo.svg" alt="Logo Gestion de stock" />
+        <span>Gestion de stock</span>
+      </a>
+    </header>
+    <h1>Mise à jour d'un article</h1>
+    <form action="/action/update" method="POST">
+      <label>
+        <div>Nom</div>
+        <input type="text" name="name" value="<%= article.name %>" />
+      </label>
+      <label>
+        <div>Prix</div>
+        <input type="text" name="price" value="<%= article.price %>" />
+      </label>
+      <label>
+        <div>Quantité</div>
+        <input type="text" name="quantity" value="<%= article.quantity %>" />
+      </label>
+      <button>Mettre à jour</button>
+    </form>
+  </body>
+</html>

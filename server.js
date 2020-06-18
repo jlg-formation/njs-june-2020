@@ -56,6 +56,17 @@ app.get("/add", (req, res, next) => {
   res.render("add", {});
 });
 
+app.get("/update/:myId", async (req, res, next) => {
+  const id = req.params.myId;
+  console.log("id: ", id);
+  const result = await client.query("SELECT * FROM articles WHERE id = $1", [
+    id,
+  ]);
+  console.log("result: ", result);
+  const article = result.rows[0];
+  res.render("update", { article: article });
+});
+
 app.use(express.static("www"));
 app.use(serveIndex("www"));
 
