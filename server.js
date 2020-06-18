@@ -4,7 +4,7 @@ const express = require("express");
 const serveIndex = require("serve-index");
 const { promises: fs } = require("fs");
 const { Client } = require("pg");
-const assert = require('assert');
+const assert = require("assert");
 
 const client = new Client();
 
@@ -27,12 +27,10 @@ let articles = [];
 
 async function init() {
   try {
-    
-
     await client.connect();
     console.log("connected to PostgreSQL");
     const res = await client.query("SELECT * FROM articles");
-    
+
     articles = res.rows;
   } catch (err) {
     console.log("err: ", err);
@@ -42,9 +40,14 @@ async function init() {
 init();
 
 app.get("/stock", async (req, res, next) => {
-  const result = await client.query("SELECT * FROM articles");
-  articles = result.rows;
-  res.render("stock", { articles });
+  try {
+    const result = await client.query("SELECT * FROM articles");
+    articles = result.rows;
+    res.render("stock", { articles });
+  } catch (err) {
+    console.log("err: ", err);
+    res.render("stock", { articles: [] });
+  }
 });
 
 app.get("/add", (req, res, next) => {
