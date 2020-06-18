@@ -15,6 +15,7 @@
     </header>
     <h1>Mise à jour d'un article</h1>
     <form action="/action/update" method="POST">
+      <input type="hidden" name="id" value="<%= article.id %>" />
       <label>
         <div>Nom</div>
         <input type="text" name="name" value="<%= article.name %>" />

@@ -45,6 +45,7 @@ app.get("/stock", async (req, res, next) => {
   try {
     const result = await client.query("SELECT * FROM articles");
     articles = result.rows;
+    articles.sort((a, b) => (a.name < b.name ? -1 : 1));
     res.render("stock", { articles });
   } catch (err) {
     console.log("err: ", err);

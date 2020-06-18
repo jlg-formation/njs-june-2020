@@ -20,5 +20,21 @@ module.exports = function (client) {
     }
   });
 
+  app.post("/update", async (req, res, next) => {
+    const article = req.body;
+    console.log("article: ", article);
+
+    try {
+      await client.query(
+        "UPDATE articles  SET name = $2, price = $3, quantity = $4 WHERE id = $1",
+        [article.id, article.name, article.price, article.quantity]
+      );
+      res.redirect("/stock");
+    } catch (error) {
+      console.log("err: ", err);
+      res.status(500).end();
+    }
+  });
+
   return app;
 };
