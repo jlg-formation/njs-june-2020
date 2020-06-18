@@ -3,11 +3,14 @@
 const express = require("express");
 const serveIndex = require("serve-index");
 const { Client } = require("pg");
+const webservices = require("./webservices.js");
 
 const client = new Client();
 
 const app = express();
 const port = 3000;
+
+let articles = [];
 
 app.set("view engine", "ejs");
 
@@ -20,7 +23,7 @@ app.use((req, res, next) => {
   next();
 });
 
-let articles = [];
+
 
 async function init() {
   try {
@@ -35,6 +38,8 @@ async function init() {
   }
 }
 init();
+
+app.use('/webservices', webservices(client));
 
 app.get("/stock", async (req, res, next) => {
   try {
@@ -62,26 +67,6 @@ app.post("/action/add", async (req, res, next) => {
       [article.id, article.name, article.price, article.quantity]
     );
     res.redirect("/stock");
-  } catch (error) {
-    console.log("err: ", err);
-    res.status(500).end();
-  }
-});
-
-app.delete("/webservices/bulk/articles", async (req, res, next) => {
-  const ids = req.body;
-  console.log("ids: ", ids);
-
-  const str = `DELETE FROM articles WHERE id IN (${ids
-    .map((n, i) => "$" + (i + 1))
-    .join(",")})`;
-
-  console.log("str: ", str);
-  await client.query(str, ids);
-
-  try {
-    ids.forEach(async (id) => {});
-    res.status(204).end();
   } catch (error) {
     console.log("err: ", err);
     res.status(500).end();
