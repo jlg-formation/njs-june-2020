@@ -49,7 +49,7 @@ init();
 app.use("/webservices", webservices(client));
 app.use("/action", action(client));
 
-app.get("/stock", async (req, res, next) => {
+app.get("/stock", async (req, res) => {
   try {
     const result = await client.query<Article>("SELECT * FROM articles");
     const articles = result.rows;
@@ -61,11 +61,11 @@ app.get("/stock", async (req, res, next) => {
   }
 });
 
-app.get("/add", (req, res, next) => {
+app.get("/add", (req, res) => {
   res.render("add", {});
 });
 
-app.get("/update/:myId", async (req, res, next) => {
+app.get("/update/:myId", async (req, res) => {
   const id = req.params.myId;
   console.log("id: ", id);
   const result = await client.query<Article>("SELECT * FROM articles WHERE id = $1", [

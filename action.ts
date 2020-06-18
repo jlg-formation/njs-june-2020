@@ -1,9 +1,10 @@
-import express from "express";
+import express, { Router } from "express";
+import { Client } from "pg";
 
 const app = express.Router();
 
-export default function (client) {
-  app.post("/add", async (req, res, next) => {
+export default function (client: Client): Router {
+  app.post("/add", async (req, res) => {
     const article = req.body;
     console.log("article: ", article);
     article.id = "a" + Math.floor(Math.random() * 1e18);
@@ -20,7 +21,7 @@ export default function (client) {
     }
   });
 
-  app.post("/update", async (req, res, next) => {
+  app.post("/update", async (req, res) => {
     const article = req.body;
     console.log("article: ", article);
 

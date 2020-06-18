@@ -1,10 +1,10 @@
-import express from "express";
+import express, { Router } from "express";
 import { Client } from "pg";
 
 const app = express.Router();
 
-export default function (client: Client) {
-  app.delete("/bulk/articles", async (req, res, next) => {
+export default function (client: Client): Router {
+  app.delete("/bulk/articles", async (req, res) => {
     const ids: string[] = req.body;
     console.log("ids: ", ids);
 
@@ -16,7 +16,6 @@ export default function (client: Client) {
     await client.query(str, ids);
 
     try {
-      ids.forEach(async (id: string) => {});
       res.status(204).end();
     } catch (err) {
       console.log("err: ", err);
